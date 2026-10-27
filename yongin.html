@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light only">
+<title>용인특례시 AICO — 시연용 목업</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light only;
+  --navy:#1E3A5F; --navy-deep:#12253D; --hero1:#24466F; --hero2:#2E5582; --emb:#2F5A88; --embl:#5A82AE;
+  --link:#1D5FA8; --paper:#F5F7F9; --card:#FFFFFF; --line:#DDE2E8; --ink:#1E242C; --sub:#5F6875;
+  --ai:#0D8F7B; --ai-soft:#E4F5F1; --ai-line:#9BD9CD; --amber-soft:#FDF3E1; --radius:12px; font-size:16px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans KR','Malgun Gothic','Apple SD Gothic Neo',sans-serif;background:var(--paper);color:var(--ink);line-height:1.55}
+::selection{background:var(--ai);color:#fff}
+.demo-bar{position:sticky;top:0;z-index:100;background:#0B1520;color:#fff;display:flex;align-items:center;gap:14px;padding:9px 20px;font-size:.8rem;flex-wrap:wrap}
+.demo-bar .tag{background:#F2C14E;color:#0B1520;font-weight:800;padding:2px 10px;border-radius:20px;font-size:.72rem;letter-spacing:.03em}
+.demo-bar .grow{flex:1}
+.toggle-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none}
+.toggle{width:42px;height:22px;border-radius:22px;background:#3A4B5E;position:relative;transition:background .25s;flex:none}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .25s}
+body.ai-on .toggle{background:var(--ai)}
+body.ai-on .toggle::after{transform:translateX(20px)}
+.toggle-label b{color:#7FE0CF}
+.plan-bar{background:#E8F4F1;border-bottom:1px solid #BFE3DA;color:#0A5C50;font-size:.78rem;padding:7px 20px;text-align:center}
+.plan-bar b{color:#064C42}
+.ai-feature{position:relative;transition:box-shadow .3s,outline-color .3s;outline:2px solid transparent;outline-offset:3px}
+body.ai-on .ai-feature{outline-color:var(--ai);box-shadow:0 0 0 6px rgba(13,143,123,.08)}
+.ai-badge{display:inline-flex;align-items:center;gap:5px;background:var(--ai);color:#fff;font-size:.66rem;font-weight:700;padding:2px 9px;border-radius:20px;letter-spacing:.05em;vertical-align:middle;text-transform:uppercase}
+.ai-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#B7F0E4}
+header.site{background:var(--navy);color:#fff}
+.util{max-width:1120px;margin:0 auto;padding:8px 24px;display:flex;justify-content:flex-end;gap:18px;font-size:.74rem;color:rgba(255,255,255,.7);flex-wrap:wrap}
+.masthead{max-width:1120px;margin:0 auto;padding:16px 24px 0;display:flex;align-items:center;gap:14px}
+.emblem{width:46px;height:46px;border-radius:10px;background:var(--emb);border:2px solid var(--embl);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.72rem;letter-spacing:.05em;color:#fff;flex:none}
+.sitename{font-family:'Noto Serif KR',serif;font-weight:700;font-size:1.55rem}
+.sitename small{display:block;font-family:'Noto Sans KR',sans-serif;font-weight:500;font-size:.66rem;color:rgba(255,255,255,.7);letter-spacing:.14em;text-transform:uppercase;margin-top:-1px}
+nav.gnb{max-width:1120px;margin:12px auto 0;padding:0 24px;display:flex;gap:2px;flex-wrap:wrap}
+nav.gnb a{color:rgba(255,255,255,.88);text-decoration:none;font-weight:600;font-size:.88rem;padding:11px 14px;border-radius:8px 8px 0 0}
+nav.gnb a:hover,nav.gnb a:focus-visible{background:rgba(255,255,255,.1);color:#fff;outline:none}
+nav.gnb a.ai-nav{color:#8CEBD9}
+body.ai-on nav.gnb a.ai-nav{background:rgba(13,143,123,.35);color:#C3F7EC}
+.hero{background:linear-gradient(180deg,var(--hero1) 0%,var(--hero2) 58%,var(--paper) 58.1%);padding:40px 24px 0}
+.hero-inner{max-width:880px;margin:0 auto;text-align:center;color:#fff}
+.hero h1{font-family:'Noto Serif KR',serif;font-weight:700;font-size:clamp(1.45rem,3.3vw,2.1rem)}
+.hero h1 em{font-style:normal;color:#9FE6D7}
+.hero p.lede{color:rgba(255,255,255,.82);font-size:.92rem;margin-top:8px}
+.searchbox{margin:24px auto 0;max-width:820px;background:var(--card);border-radius:var(--radius);box-shadow:0 16px 40px rgba(0,0,0,.28);overflow:hidden;text-align:left}
+.disclose{display:flex;align-items:center;gap:8px;background:#F1F6F5;border-bottom:1px solid var(--line);padding:8px 18px;font-size:.74rem;color:#3F5A54}
+.disclose b{color:#0A6E5F}
+.lang-row{display:flex;align-items:center;gap:6px;padding:10px 18px 0;flex-wrap:wrap}
+.lang-row .lbl{font-size:.74rem;color:var(--sub);font-weight:600;margin-right:4px}
+.lang-btn{border:1px solid var(--line);background:#fff;border-radius:20px;font:inherit;font-size:.78rem;font-weight:600;color:var(--sub);padding:5px 12px;cursor:pointer}
+.lang-btn[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.lang-btn:focus-visible{outline:2px solid var(--ai)}
+.search-row{display:flex;align-items:center;gap:10px;padding:12px 18px}
+.orb{width:34px;height:34px;border-radius:50%;flex:none;background:conic-gradient(from 210deg,var(--ai),#33B9A2,#0A6E5F,var(--ai));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:.72rem}
+.search-row input{flex:1;border:none;outline:none;font:inherit;font-size:1rem;color:var(--ink);min-width:0;background:#fff}
+.search-row input::placeholder{color:#9AA3AF}
+.ask-btn{flex:none;background:var(--ai);color:#fff;border:none;border-radius:9px;font:inherit;font-weight:700;font-size:.88rem;padding:10px 18px;cursor:pointer}
+.ask-btn:hover{background:#0B7A69}
+.ask-btn:focus-visible{outline:3px solid var(--ai-line)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;padding:4px 18px 16px;background:#fff;border-bottom:1px solid var(--line)}
+.chips button{border:1px solid var(--line);background:#FAFBFC;border-radius:20px;font:inherit;font-size:.8rem;color:var(--sub);padding:7px 13px;cursor:pointer;text-align:left}
+.chips button:hover{border-color:var(--ai);color:var(--ai)}
+.chips button:focus-visible{outline:2px solid var(--ai)}
+.chips button.guard{border-color:#E7C98F;background:var(--amber-soft);color:#7A5310;font-weight:600}
+.chips button.route{border-color:#B9CBE6;background:#EEF4FC;color:#1D4F8C;font-weight:600}
+.answer{display:none;padding:18px 22px 20px}
+.answer.show{display:block;animation:fadeUp .35s ease}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.answer .q{font-weight:700;font-size:.92rem;color:var(--link);margin-bottom:10px}
+.answer .a{font-size:.94rem;white-space:pre-wrap;color:var(--ink)}
+.cursor{display:inline-block;width:8px;height:1.05em;background:var(--ai);vertical-align:text-bottom;animation:blink .8s steps(1) infinite;margin-left:2px}
+@keyframes blink{50%{opacity:0}}
+.gloss{display:none;margin-top:12px;border-left:3px solid var(--line);padding:6px 0 6px 12px;font-size:.82rem;color:var(--sub);white-space:pre-wrap}
+.gloss b{color:var(--ink);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase}
+.src-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;align-items:center}
+.src{display:inline-flex;align-items:center;gap:6px;background:var(--ai-soft);border:1px solid var(--ai-line);color:#0A6E5F;border-radius:8px;font-size:.74rem;font-weight:700;padding:6px 10px}
+.src::before{content:'📄'}
+.src.none{background:var(--amber-soft);border-color:#E7C98F;color:#7A5310}
+.src.none::before{content:'⚠'}
+.src.route{background:#EEF4FC;border-color:#B9CBE6;color:#1D4F8C}
+.src.route::before{content:'🧭'}
+.handoff{display:inline-flex;align-items:center;gap:6px;background:var(--navy);color:#fff;border:none;border-radius:8px;font:inherit;font-size:.76rem;font-weight:700;padding:7px 12px;cursor:pointer}
+.answer .note{font-size:.71rem;color:#8A93A0;margin-top:12px}
+main{max-width:1120px;margin:0 auto;padding:46px 24px 20px}
+.section{margin-bottom:54px}
+.section-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.section-head h2{font-family:'Noto Serif KR',serif;font-weight:700;font-size:1.35rem;color:var(--navy)}
+.section-head .sub{color:var(--sub);font-size:.85rem}
+.feature-shell{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:14px}
+.tabs{display:flex;border-bottom:1px solid var(--line);overflow-x:auto}
+.tabs button{flex:1;min-width:170px;border:none;background:#F0F3F6;font:inherit;font-weight:700;font-size:.86rem;color:var(--sub);padding:14px 12px;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap}
+.tabs button[aria-selected="true"]{background:#fff;color:var(--ai);border-bottom-color:var(--ai)}
+.tabs button:focus-visible{outline:2px solid var(--ai);outline-offset:-4px}
+.panel{display:none;padding:24px}
+.panel.active{display:block;animation:fadeUp .3s ease}
+.rec-list{display:grid;gap:10px}
+.rec{display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:10px;padding:13px 16px;cursor:pointer;background:#fff;font:inherit;text-align:left;width:100%}
+.rec:hover,.rec[aria-expanded="true"]{border-color:var(--ai)}
+.rec:focus-visible{outline:2px solid var(--ai)}
+.rec .date{flex:none;font-size:.74rem;color:var(--sub);width:96px}
+.rec .title{font-weight:700;font-size:.9rem;flex:1;color:var(--ink)}
+.rec .go{flex:none;font-size:.76rem;color:var(--ai);font-weight:700}
+.summary{display:none;border:1px solid var(--ai-line);background:var(--ai-soft);border-radius:10px;padding:16px 20px;margin:2px 0 8px}
+.summary.show{display:block;animation:fadeUp .3s ease}
+.summary h4{font-size:.8rem;color:#0A6E5F;margin-bottom:8px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.summary ul{list-style:none;display:grid;gap:7px}
+.summary li{font-size:.88rem;padding-left:20px;position:relative;color:var(--ink)}
+.summary li b{color:#075E51}
+.summary li::before{content:'';position:absolute;left:4px;top:.55em;width:7px;height:7px;border-radius:2px;background:var(--ai)}
+.kw-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.kw{background:#fff;border:1px solid var(--ai-line);color:#0A6E5F;font-size:.7rem;font-weight:700;border-radius:20px;padding:3px 10px}
+.review-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:760px){.review-grid{grid-template-columns:1fr}}
+.review-grid textarea{width:100%;height:200px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:.88rem;padding:14px;resize:vertical;color:var(--ink);background:#FAFBFC}
+.review-grid textarea:focus{outline:2px solid var(--ai);border-color:var(--ai)}
+.check-btn{margin-top:12px;background:var(--ai);color:#fff;border:none;border-radius:9px;font:inherit;font-weight:700;font-size:.88rem;padding:11px 20px;cursor:pointer}
+.check-btn:hover{background:#0B7A69}
+.check-btn:focus-visible{outline:3px solid var(--ai-line)}
+.result-box{border:1px solid var(--line);border-radius:10px;padding:16px 18px;min-height:200px;background:#fff}
+.placeholder{color:#9AA3AF;font-size:.86rem;text-align:center;padding-top:64px}
+.check-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line);font-size:.86rem;color:var(--ink);opacity:0;animation:fadeUp .4s ease forwards}
+.check-item:last-child{border-bottom:none}
+.check-item b{color:var(--ink)}
+.stat{flex:none;font-weight:800;font-size:.7rem;border-radius:6px;padding:3px 8px;height:fit-content;letter-spacing:.03em}
+.stat.ok{background:#E7F5EC;color:#1B7A3D}
+.stat.warn{background:#FDF1DE;color:#A16A07}
+.stat.info{background:#E7EFFA;color:#1D5FA8}
+.spinner{display:none;color:var(--ai);font-size:.85rem;font-weight:700;padding-top:72px;text-align:center}
+.spinner.show{display:block}
+.match-top{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px}
+.match-top select{font:inherit;font-size:.9rem;padding:9px 13px;border:1px solid var(--line);border-radius:9px;background:#fff;color:var(--ink);min-width:260px}
+.match-top select:focus{outline:2px solid var(--ai)}
+.match-set{display:none;grid-template-columns:repeat(3,1fr);gap:12px}
+.match-set.show{display:grid;animation:fadeUp .3s ease}
+@media(max-width:820px){.match-set.show{grid-template-columns:1fr}}
+.match-card{border:1px solid var(--line);border-radius:12px;padding:15px 17px;background:#fff}
+.match-card .step{font-weight:800;color:var(--ai);font-size:.78rem;letter-spacing:.06em;text-transform:uppercase}
+.match-card h4{font-size:.95rem;margin:4px 0 6px;color:var(--navy)}
+.match-card p{font-size:.8rem;color:var(--sub)}
+.match-card .why{margin-top:10px;background:var(--ai-soft);border-radius:8px;padding:8px 11px;font-size:.77rem;color:#0A6E5F}
+.civic{display:grid;grid-template-columns:1fr 1.15fr;gap:24px;margin-top:14px}
+@media(max-width:840px){.civic{grid-template-columns:1fr}}
+.civic-copy h3{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:10px}
+.civic-copy p{font-size:.9rem;color:var(--sub);margin-bottom:14px}
+.civic-copy ul{list-style:none;display:grid;gap:10px}
+.civic-copy li{font-size:.88rem;padding-left:24px;position:relative;color:var(--ink)}
+.civic-copy li b{color:#0A6E5F}
+.civic-copy li::before{content:'✓';position:absolute;left:2px;color:var(--ai);font-weight:900}
+.chat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);display:flex;flex-direction:column;overflow:hidden;min-height:400px}
+.chat-head{background:var(--ai);color:#fff;padding:11px 16px;font-weight:700;font-size:.86rem;display:flex;align-items:center;gap:8px}
+.chat-head::before{content:'';width:8px;height:8px;border-radius:50%;background:#B7F0E4;animation:blink 1.6s infinite}
+.chat-head small{margin-left:auto;font-weight:500;font-size:.7rem;opacity:.85}
+.chat-log{flex:1;padding:16px;display:flex;flex-direction:column;gap:10px;overflow-y:auto;background:#FAFBFC;max-height:400px}
+.msg{max-width:86%;padding:10px 14px;border-radius:14px;font-size:.85rem;opacity:0;animation:fadeUp .3s ease forwards}
+.msg.user{align-self:flex-end;background:var(--link);color:#fff;border-bottom-right-radius:4px}
+.msg.bot{align-self:flex-start;background:#fff;border:1px solid var(--line);border-bottom-left-radius:4px;color:var(--ink)}
+.msg.bot b{color:var(--ai)}
+.msg.staff{align-self:flex-start;background:#F3F5F8;border:1px dashed #B8C2CF;color:#3C4654;font-size:.8rem}
+.msg.staff b{color:var(--navy)}
+.chat-actions{padding:11px 16px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}
+.chat-actions button{border:1px solid var(--ai-line);background:var(--ai-soft);color:#0A6E5F;border-radius:20px;font:inherit;font-size:.77rem;font-weight:700;padding:7px 12px;cursor:pointer}
+.chat-actions button:hover{background:var(--ai);color:#fff}
+.chat-actions button:disabled{opacity:.4;cursor:default}
+.value-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:14px}
+@media(max-width:900px){.value-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.value-grid{grid-template-columns:1fr}}
+.value{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:19px 18px}
+.value .num{font-family:'Noto Serif KR',serif;font-weight:700;font-size:1.45rem;color:var(--ai)}
+.value h4{font-size:.94rem;margin:6px 0;color:var(--navy)}
+.value p{font-size:.8rem;color:var(--sub)}
+.diff{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-top:14px}
+.diff table{width:100%;border-collapse:collapse;font-size:.86rem}
+.diff th,.diff td{padding:12px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.diff tr:last-child td{border-bottom:none}
+.diff th{background:#F0F3F6;font-size:.78rem;color:var(--sub);letter-spacing:.04em;text-transform:uppercase}
+.diff th.us{background:var(--ai);color:#fff}
+.diff td:first-child{font-weight:700;color:var(--navy);width:18%}
+.diff td.them{color:var(--sub)}
+.diff td.us{color:#075E51;font-weight:600;background:#F4FBF9}
+.vendor{background:var(--navy);border-radius:var(--radius);color:#fff;padding:28px;display:grid;grid-template-columns:1.15fr 1fr;gap:26px;align-items:center}
+@media(max-width:840px){.vendor{grid-template-columns:1fr}}
+.vendor h3{font-family:'Noto Serif KR',serif;font-weight:700;font-size:1.25rem;margin-bottom:10px}
+.vendor h3 em{font-style:normal;color:#9FE6D7}
+.vendor p{font-size:.88rem;color:rgba(255,255,255,.8)}
+.vendor ul{list-style:none;display:grid;gap:9px}
+.vendor li{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:10px 14px;font-size:.83rem}
+.vendor li b{color:#9FE6D7}
+footer.site{background:var(--navy-deep);color:rgba(255,255,255,.6);text-align:center;font-size:.74rem;padding:24px 20px;margin-top:54px;line-height:1.85}
+footer.site b{color:rgba(255,255,255,.88)}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style>
+</head>
+<body class="ai-on">
+<div class="demo-bar">
+  <span class="tag">시연용 목업</span>
+  <span id="demoText"></span>
+  <span class="grow"></span>
+  <label class="toggle-wrap"><span class="toggle-label">신규 <b>AI 기능</b> 하이라이트</span><span class="toggle" id="aiToggle" role="switch" aria-checked="true" tabindex="0"></span></label>
+</div>
+<div class="plan-bar" id="planBar"></div>
+<header class="site">
+  <div class="util" id="util"></div>
+  <div class="masthead"><div class="emblem" aria-hidden="true" id="emblem"></div><div class="sitename" id="sitename"></div></div>
+  <nav class="gnb" aria-label="Main" id="gnb"></nav>
+  <div class="hero"><div class="hero-inner">
+    <h1 id="heroH1"></h1>
+    <p class="lede" id="heroLede"></p>
+    <div class="searchbox ai-feature">
+      <div class="disclose">🤖 <span id="disclose"></span></div>
+      <div class="lang-row" role="group" aria-label="Sample question language" id="langRow"><span class="lbl">질문 언어:</span></div>
+      <div class="search-row"><div class="orb" aria-hidden="true">AI</div><input id="qInput" type="text" aria-label="AI 질문 입력"><button class="ask-btn" id="askBtn">질문하기</button></div>
+      <div class="chips" id="chips"></div>
+      <div class="answer" id="answer" aria-live="polite">
+        <div class="q" id="ansQ"></div><div class="a" id="ansA"></div><div class="gloss" id="ansGloss"></div><div class="src-row" id="ansSrc"></div>
+        <div class="note">※ 시연용 가상 답변입니다. 실제 서비스에서는 모든 답변이 근거가 된 시 공식 페이지·조례의 해당 문단으로 연결됩니다.</div>
+      </div>
+    </div>
+  </div></div>
+</header>
+<main>
+  <section class="section">
+    <div class="section-head"><h2>AI 민원 지원 기능</h2><span class="ai-badge">신규</span><span class="sub">탭을 눌러 각 기능을 체험해 보세요</span></div>
+    <div class="feature-shell ai-feature">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-panel="p-summary">고시·공고 3줄 요약</button>
+        <button role="tab" aria-selected="false" data-panel="p-report">민원 AI 사전분석</button>
+        <button role="tab" aria-selected="false" data-panel="p-match" id="lifeTab">생애 이벤트</button>
+      </div>
+      <div class="panel active" id="p-summary" role="tabpanel"><div class="rec-list" id="recList"></div></div>
+      <div class="panel" id="p-report" role="tabpanel">
+        <div class="review-grid">
+          <div><textarea id="reportInput" aria-label="민원 내용 입력"></textarea><button class="check-btn" id="checkBtn">AI 사전분석 실행</button></div>
+          <div class="result-box"><div class="placeholder" id="resultPh">민원 내용을 입력하고 [AI 사전분석 실행]을 누르면<br>관할 확인 · 소관 부서 분류 · 복합 민원 분리가 표시됩니다.</div><div class="spinner" id="spinner">⏳ 관할 확인 및 소관 부서 매칭 중…</div><div id="resultList"></div></div>
+        </div>
+      </div>
+      <div class="panel" id="p-match" role="tabpanel">
+        <div class="match-top"><label for="matchSel" style="font-weight:700;font-size:.9rem">나의 상황</label><select id="matchSel"><option value="">— 해당되는 상황을 선택하세요 —</option></select><span class="ai-badge">맞춤 안내</span></div>
+        <div id="matchSets"></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>모든 시민, 모든 언어</h2><span class="sub">같은 AI, 같은 공식 근거 — 시민의 언어로 답합니다</span></div>
+    <div class="civic">
+      <div class="civic-copy"><h3 id="civicH3"></h3><p id="civicP"></p>
+        <ul>
+          <li id="routeLi"></li>
+          <li><b>공식 근거만</b> — 모든 답변에 근거 문서(시 홈페이지·조례)를 문단 단위로 표시</li>
+          <li><b>모르면 답하지 않음</b> — 근거가 없으면 지어내지 않고 담당 부서로 연결</li>
+          <li id="langLi"></li>
+        </ul>
+      </div>
+      <div class="chat ai-feature">
+        <div class="chat-head" id="chatHead"></div>
+        <div class="chat-log" id="chatLog"></div>
+        <div class="chat-actions"><button id="demoChat1"></button><button id="demoChat2"></button></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-head"><h2>왜 AICO인가</h2><span class="sub" id="diffSub"></span></div>
+    <div class="diff ai-feature"><table>
+      <thead><tr><th></th><th id="themHead">일반 공공 챗봇</th><th class="us">AICO</th></tr></thead>
+      <tbody>
+        <tr><td>오답(환각)</td><td class="them">모르는 질문에도 그럴듯한 오답 생성</td><td class="us">근거 없으면 답변 보류 — 담당 부서로 연결</td></tr>
+        <tr><td>답변 근거</td><td class="them">출처 불명 — 검증 불가</td><td class="us">모든 답변에 문단 단위 출처 표시</td></tr>
+        <tr><td id="diffRouteK"></td><td class="them" id="diffRouteT"></td><td class="us" id="diffRouteU"></td></tr>
+        <tr><td>다국어</td><td class="them">기계번역 페이지 수준</td><td class="us">시민의 언어로 묻고 답함 · 담당자에게는 한국어 사본 제공</td></tr>
+        <tr><td>개인정보</td><td class="them">질문 원문 그대로 외부 AI 전송</td><td class="us">개인정보 자동 마스킹 후 처리 · 시 데이터로 모델 학습 안 함 · 전 질의 감사 로그</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+  <section class="section"><div class="section-head"><h2>기대 효과</h2></div><div class="value-grid" id="values"></div></section>
+  <section class="section">
+    <div class="vendor">
+      <div><h3>틀리면 안 되는 곳에서 검증된 AI — <em>㈜투디지트</em></h3>
+        <p>금융 특화 LLM·소버린 AI 전문기업 투디지트가 질문이해 · 근거 기반 답변 · 담당자 연결 엔진을 지자체 민원에 그대로 적용합니다.</p></div>
+      <ul>
+        <li><b>상용 운영 중</b> — KT M모바일 AIRS AI Agent 서비스, 330턴 문맥 QA PASS 100%</li>
+        <li><b>세계 1위 95일</b> — HuggingFace Open LLM 리더보드</li>
+        <li><b>"모르면 모른다"</b> — SQuAD 2.0 국내 1위</li>
+        <li><b>금융권 수행</b> — 삼성증권 · IBK기업은행 · 우리투자증권 · SK증권</li>
+      </ul>
+    </div>
+  </section>
+</main>
+<footer class="site" id="footer"></footer>
+<script>
+const C = {"title": "용인특례시 AICO — 시연용 목업", "demo": "용인특례시 홈페이지 AI 고도화 제안 · ㈜투디지트 제작 · 데이터는 가상 예시입니다", "plan": "<b>시 통합 AICO</b> — 주소만 말하면 <b>처인·기흥·수지</b> 관할 구청까지 자동 안내 (시 공통 기반 + 구 레이어)", "util": ["로그인", "처인구청", "기흥구청", "수지구청", "ENGLISH · TIẾNG VIỆT"], "emblem": "용인", "name": "용인특례시", "short": "용인특례시", "tagline": "사람들의 용인 · 시연용 사이트", "nav": ["분야별정보", "민원·참여", "정보공개", "용인소개", "구청 바로가기"], "h1": "시청에 <em>무엇이든</em> 물어보세요", "lede": "111만 시민의 민원, 반도체 클러스터 기업 문의, 외국인 주민 질문까지 — 처인·기흥·수지 어디서든 24시간, 근거와 함께 답합니다", "langs": [["ko", "한국어"], ["en", "English"], ["vi", "Tiếng Việt"]], "ph": {"ko": "예) 수지구 풍덕천동인데 대형폐기물은 어떻게 버려요?", "en": "e.g., I'm moving to Yongin for a semiconductor job — what do I need to do?", "vi": "VD: Trung tâm y tế (보건소) gần nhất ở đâu?"}, "chips": {"ko": [["waste", "🛋 수지구 풍덕천동인데 대형폐기물은 어떻게 버려요?", "route"], ["factory", "🏭 반도체 클러스터 협력사 공장 설립 절차가 궁금해요"], ["redev", "🏗 우리 동네 재개발, 언제 확정되나요?", "guard"]], "en": [["move_en", "💼 I'm moving to Yongin for a semiconductor job — what do I do?"], ["trash_en", "🗑 How do I sort trash and recycling in Korea?"]], "vi": [["clinic_vi", "🏥 Trung tâm y tế (보건소) gần chỗ tôi ở Cheoin-gu ở đâu?"], ["trash_vi", "🗑 Làm sao để bỏ rác đúng cách?"]]}, "route": [["폐기물|소파|가구", "waste"], ["공장|협력사|반도체|인허가", "factory"], ["재개발|재건축|확정", "redev"], ["moving|semiconductor|job", "move_en"], ["trash|recycl|sort", "trash_en"], ["y tế|보건소|khám", "clinic_vi"], ["rác", "trash_vi"]], "qa": {"waste": {"q": "수지구 풍덕천동인데 대형폐기물은 어떻게 버려요?", "a": "풍덕천동은 수지구 관할입니다. 대형폐기물은 이렇게 배출하시면 됩니다.\n\n1) 신고: 시 홈페이지 대형폐기물 인터넷 신고에서 품목을 고르고 수수료를 결제합니다. 동 행정복지센터 방문 신고도 가능합니다.\n2) 스티커 부착: 발급된 신고필증을 폐기물에 붙입니다.\n3) 배출: 지정한 날짜에 집 앞 지정 장소에 내놓으면 수거됩니다.\n\n냉장고·세탁기 같은 폐가전은 무상 방문수거를 이용하면 수수료가 없습니다.", "route": "관할: 수지구 (주소 기준 자동 판별)", "src": ["대형폐기물 배출 안내 — 용인특례시", "수지구청 생활민원 안내"]}, "factory": {"q": "반도체 클러스터 협력사인데 공장 설립 절차가 궁금해요", "a": "공장 설립 절차는 입지에 따라 달라집니다.\n\n• 산업단지(국가산단·일반산단) 안: 산업단지 관리기관을 통한 입주계약이 먼저입니다.\n• 산업단지 밖 개별 입지: 공장설립 승인(또는 등록) 절차를 따르며, 토지 용도와 규모에 따라 필요한 인허가가 달라집니다.\n\n입지가 정해지셨다면 기업 지원 담당 부서로 바로 연결해 드리고, 필요한 서류 목록을 먼저 보내드릴 수 있습니다.", "src": ["공장설립 인허가 안내 — 용인특례시", "반도체 클러스터 기업지원 안내"]}, "redev": {"q": "우리 동네 재개발, 언제 확정되나요?", "a": "확정 시점은 공식 문서로 확인할 수 없어 추측해서 답하지 않겠습니다.\n\n재개발·재건축은 정비계획 수립, 주민 공람, 위원회 심의 등 여러 단계를 거치며, 각 단계의 공고가 나올 때 일정이 공식화됩니다.\n\n• 사시는 주소를 알려주시면 관련 공고가 올라올 때 알림을 보내드릴 수 있습니다.\n• 담당 부서에 질문을 전달해 드릴 수도 있습니다.", "none": "공식 근거 없음 — 예측 답변 보류", "handoff": "담당 부서에 질문 전달 →", "src": []}, "move_en": {"q": "I'm moving to Yongin for a semiconductor job. What do I need to do?", "a": "Welcome to Yongin! A few first steps:\n\n1) Report your new address (change of residence) online via Hi Korea or at your local community service center (행정복지센터) — there is a legal deadline after moving.\n2) Household waste: buy the city's designated volume-rate garbage bags; food waste and recyclables are separated.\n3) Your district office depends on your address: Cheoin-gu, Giheung-gu or Suji-gu. Tell me your address and I'll point you to the right one.\n\nAnswers come from official Yongin pages; staff receive a Korean copy.", "gloss": "반도체 기업 취업으로 전입하는 외국인: ①체류지 변경신고(하이코리아 또는 행정복지센터, 법정 기한 있음) ②종량제 봉투·음식물·재활용 분리배출 ③주소 기준 관할 구청(처인·기흥·수지) 안내.", "src": ["외국인 주민 생활 안내 — 용인특례시", "생활폐기물 배출 안내"]}, "trash_en": {"q": "How do I sort trash and recycling in Korea?", "a": "In Yongin, household waste is sorted into three streams:\n\n• General waste: in the city's designated volume-rate bags (sold at convenience stores and supermarkets).\n• Food waste: separately, in food-waste bags or containers.\n• Recyclables: plastic, paper, glass and cans, rinsed and sorted, on your building's collection day.\n\nRules on collection days and times can differ by district — tell me your address for the exact schedule.", "gloss": "외국인 주민 분리배출 안내: 일반쓰레기 종량제 봉투, 음식물 별도, 재활용(플라스틱·종이·유리·캔) 세척 후 분리. 수거 요일은 주소별 상이.", "src": ["생활폐기물 배출 안내 — 용인특례시"]}, "clinic_vi": {"q": "Trung tâm y tế (보건소) gần chỗ tôi ở Cheoin-gu ở đâu?", "a": "Nếu bạn sống ở Cheoin-gu, trung tâm y tế phụ trách là Trung tâm Y tế Cheoin-gu (처인구보건소).\n\n• Tại đây có các dịch vụ như tiêm chủng và khám sức khỏe cơ bản.\n• Giờ làm việc và dịch vụ cụ thể được công bố trên trang của trung tâm y tế.\n\nBạn có muốn tôi chỉ đường hoặc xem giờ làm việc không?", "gloss": "처인구 거주 외국인 주민의 보건소 문의 → 처인구보건소 안내(예방접종·기본 검진 등), 운영시간은 보건소 페이지 기준. 길 안내 제안.", "src": ["처인구보건소 — 용인특례시"]}, "trash_vi": {"q": "Làm sao để bỏ rác đúng cách?", "a": "Ở Yongin, rác được phân loại như sau:\n\n• Rác thường: cho vào túi rác theo quy định của thành phố (bán ở cửa hàng tiện lợi, siêu thị).\n• Rác thực phẩm: bỏ riêng.\n• Rác tái chế: nhựa, giấy, thủy tinh, lon — rửa sạch và phân loại.\n\nNgày thu gom có thể khác nhau tùy khu vực — hãy cho tôi biết địa chỉ của bạn.", "gloss": "분리배출 안내(베트남어): 일반쓰레기 종량제 봉투, 음식물 별도, 재활용 세척·분리. 수거일은 주소별 상이.", "src": ["생활폐기물 배출 안내 — 용인특례시"]}}, "notices": [{"t": "용인 반도체 국가산업단지 관련 주민설명회 개최 공고", "meta": "1.2초 · 원문 34면", "li": ["사업 구역 내 <b>토지·지장물 보상 절차와 일정</b> 안내를 위한 주민설명회입니다.", "설명회 일시·장소와 사전 질의 접수 방법이 첨부에 있습니다.", "내 토지가 구역에 포함되는지는 첨부 도면 4면에서 확인할 수 있습니다."], "kw": ["#반도체국가산단", "#처인구", "#주민설명회"]}, {"t": "2040 용인 도시기본계획(안) 공청회 개최 공고", "meta": "1.4초 · 원문 58면", "li": ["<b>150만 도시</b>를 전제로 한 생활권·교통·산업 배치 방향을 담고 있습니다.", "공청회 일시와 서면 의견 제출 방법이 안내되어 있습니다.", "생활권별 계획은 처인·기흥·수지 구별로 정리되어 있습니다."], "kw": ["#도시기본계획", "#공청회", "#의견제출"]}, {"t": "2026년 하반기 청년 월세 지원사업 공고", "meta": "0.8초 · 원문 12면", "li": ["대상: 관내 거주 19~39세 무주택 청년, 소득 기준 별도.", "지원: 월 최대 20만 원, 최장 12개월 — 온라인 접수.", "중복 불가: 국토부 청년월세 지원 수급 중이면 신청 불가."], "kw": ["#청년월세", "#온라인접수"]}], "report": {"text": "기흥구 보정동 큰길에 포트홀이 크게 생겼고, 그 옆 횡단보도 앞에 매일 불법주차 차량이 있어서 아이들이 위험해요.", "checks": [["info", "관할", "주소 기준 <b>기흥구</b> 관할로 판별 — 기흥구청으로 접수됩니다."], ["warn", "검토", "<b>복합 민원 감지</b> — 2건으로 분리 접수해 각 부서로 보냅니다."], ["ok", "분류", "민원 1 — <b>도로 포트홀</b> → 도로 보수 담당 부서"], ["ok", "분류", "민원 2 — <b>횡단보도 앞 불법주차</b> → 주정차 단속 담당 부서 (어린이 안전 우선 표시)"], ["info", "안내", "처리 단계별 알림을 문자로 받으실 수 있습니다. 사진을 첨부하면 처리가 빨라집니다."]]}, "lifeTab": "생애 이벤트", "life": [{"label": "반도체 클러스터 협력사 창업", "cards": [["입지 확인", "산업단지 입주 vs 개별 입지", "입지에 따라 인허가 경로가 다릅니다."], ["공장설립 인허가", "승인·등록 절차와 서류", "기업 지원 부서로 바로 연결"], ["기업 지원사업", "시·도 기업 지원 공고", "자격요건을 자동으로 대조합니다."]]}, {"label": "외국인 근로자 전입", "cards": [["체류지 변경신고", "하이코리아 또는 행정복지센터", "법정 기한 내 신고 필요"], ["생활 안내", "분리배출·보건소·교통", "모국어로 안내합니다."], ["관할 구청 확인", "처인·기흥·수지", "주소로 자동 판별"]]}, {"label": "신혼부부 전입", "cards": [["전입신고", "정부24 또는 행정복지센터", "확정일자도 함께 확인"], ["신혼부부 지원", "주거·출산 지원사업", "자격요건 자동 대조"], ["어린이집·보건소", "관할 구 기준 안내", "처인·기흥·수지별 정보"]]}], "civicH3": "111만 시민, 3개 구, 하나의 AI 창구", "civicP": "어느 구에 사는지 몰라도 됩니다. AICO가 주소로 관할 구청을 판별하고, 외국인 주민에게는 모국어로 답합니다.", "routeLi": "<b>처인·기흥·수지 자동 판별</b> — 주소만 말하면 관할 구청과 담당 부서까지 한 번에 안내", "langLi": "<b>English · Tiếng Việt</b> — 외국인 주민은 모국어로 묻고, 담당자는 한국어 사본으로 확인", "diffRoute": ["3개 구 관할", "구청마다 따로 찾아야 함", "주소 기반 처인·기흥·수지 자동 안내"], "chats": [{"label": "예시: 보건소 문의 (베트남어)", "steps": [["user", "Tôi sống ở Cheoin-gu. Tôi muốn tiêm phòng cúm cho con. Đi đâu?", 150], ["bot", "Bạn sống ở Cheoin-gu nên có thể liên hệ <b>Trung tâm Y tế Cheoin-gu (처인구보건소)</b>. Lịch tiêm chủng và giờ làm việc được công bố trên trang của trung tâm y tế.", 1300], ["user", "Cảm ơn. Có cần đặt lịch không?", 900], ["bot", "Tôi có thể chuyển câu hỏi của bạn đến nhân viên trung tâm y tế để được hướng dẫn chính xác. ✓ Đã gửi yêu cầu.", 1000], ["staff", "<b>담당자 화면 (상담 요약)</b> — 처인구 거주 베트남 주민이 자녀 독감 예방접종 장소와 예약 필요 여부 문의. 처인구보건소 안내 후 예약 여부는 담당자 확인으로 전달.", 900]]}, {"label": "예시: 협력사 공장 설립 (한국어)", "steps": [["user", "원삼면 근처에 반도체 장비 부품 공장을 세우려고 합니다. 어디부터 알아봐야 하나요?", 150], ["bot", "입지가 <b>산업단지 안</b>인지 <b>개별 입지</b>인지에 따라 절차가 다릅니다. 산업단지라면 입주계약이 먼저이고, 개별 입지라면 공장설립 승인 절차를 따릅니다.", 1300], ["user", "아직 부지는 미정입니다.", 900], ["bot", "그럼 입지 검토 단계부터 기업 지원 담당 부서와 상담하시는 게 좋습니다. ✓ 상담 요청을 접수했고, 필요한 서류 목록을 문자로 보내드렸습니다.", 1000], ["staff", "<b>담당자 화면 (상담 요약)</b> — 반도체 장비 부품 협력사가 처인구 원삼면 인근 공장 설립 문의(부지 미정). 기업 지원 부서 상담 요청 접수, 서류 목록 발송.", 900]]}], "diffSub": "3개 구를 가진 대도시에 맞춘 시 통합 구조", "values": [["24시간", "야간·주말 상시 응대", "업무시간 밖 민원도 1차 응대"], ["111만 → 1창구", "3개 구 자동 라우팅", "주소로 처인·기흥·수지 관할 판별"], ["3개 국어", "한국어 · English · Tiếng Việt", "외국인 주민 58.7%가 사는 처인구 우선"], ["0건", "출처 없는 답변", "근거가 없으면 담당자에게 연결"]]};
+const $=id=>document.getElementById(id);
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+document.title=C.title;
+$('demoText').textContent=C.demo;
+if(C.plan){$('planBar').innerHTML=C.plan}else{$('planBar').remove()}
+$('util').innerHTML=C.util.map(u=>'<span>'+u+'</span>').join('');
+$('emblem').textContent=C.emblem;
+$('sitename').innerHTML=C.name+'<small>'+C.tagline+'</small>';
+$('gnb').innerHTML=C.nav.map(n=>'<a href="#">'+n+'</a>').join('')+'<a href="#" class="ai-nav">AICO 상담 <span class="ai-badge">NEW</span></a>';
+$('heroH1').innerHTML=C.h1;$('heroLede').textContent=C.lede;
+$('disclose').innerHTML='지금 <b>AI 상담원 AICO</b>와 대화 중입니다. '+C.short+' 공식 자료만 근거로, 출처와 함께 답합니다. 언제든 담당자 연결을 요청하세요.';
+C.langs.forEach(([code,label],i)=>{const b=document.createElement('button');b.className='lang-btn';b.dataset.lang=code;b.textContent=label;b.setAttribute('aria-pressed',i===0);$('langRow').appendChild(b)});
+const qInput=$('qInput');let curLang=C.langs[0][0];
+function renderChips(lang){curLang=lang;$('chips').innerHTML='';
+  C.chips[lang].forEach(([k,label,cls])=>{const b=document.createElement('button');b.dataset.q=k;b.textContent=label;if(cls)b.className=cls;$('chips').appendChild(b)});
+  qInput.placeholder=C.ph[lang];document.querySelectorAll('.lang-btn').forEach(x=>x.setAttribute('aria-pressed',x.dataset.lang===lang));}
+document.querySelectorAll('.lang-btn').forEach(b=>b.addEventListener('click',()=>renderChips(b.dataset.lang)));
+renderChips(curLang);
+let typeTimer=null;
+function runQA(key){const d=C.qa[key];$('answer').classList.add('show');$('ansQ').textContent='Q. '+d.q;
+  $('ansSrc').innerHTML='';$('ansGloss').style.display='none';$('ansA').innerHTML='<span class="cursor"></span>';clearInterval(typeTimer);let i=0;
+  typeTimer=setInterval(()=>{i+=3;$('ansA').innerHTML=esc(d.a.slice(0,i))+'<span class="cursor"></span>';
+    if(i>=d.a.length){clearInterval(typeTimer);$('ansA').textContent=d.a;
+      if(d.gloss){$('ansGloss').innerHTML='<b>담당자용 한국어 사본</b>\n'+esc(d.gloss);$('ansGloss').style.display='block'}
+      if(d.route){const el=document.createElement('span');el.className='src route';el.textContent=d.route;$('ansSrc').appendChild(el)}
+      if(d.none){const el=document.createElement('span');el.className='src none';el.textContent=d.none;$('ansSrc').appendChild(el);
+        const h=document.createElement('button');h.className='handoff';h.textContent=d.handoff;h.addEventListener('click',()=>{h.textContent='✓ 접수 완료 — 담당자가 문자로 회신합니다';h.disabled=true});$('ansSrc').appendChild(h)}
+      d.src.forEach(s=>{const el=document.createElement('span');el.className='src';el.textContent=s;$('ansSrc').appendChild(el)});}},14);}
+$('chips').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;qInput.value=C.qa[b.dataset.q].q;runQA(b.dataset.q)});
+$('askBtn').addEventListener('click',()=>{const v=qInput.value.toLowerCase();let k=null;
+  for(const [re,key] of C.route){if(new RegExp(re,'i').test(v)){k=key;break}}
+  if(!k)k=C.chips[curLang][0][0];runQA(k)});
+qInput.addEventListener('keydown',e=>{if(e.key==='Enter')$('askBtn').click()});
+document.querySelectorAll('.tabs [role="tab"]').forEach(t=>t.addEventListener('click',()=>{document.querySelectorAll('.tabs [role="tab"]').forEach(x=>x.setAttribute('aria-selected','false'));document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));t.setAttribute('aria-selected','true');$(t.dataset.panel).classList.add('active')}));
+C.notices.forEach((n,i)=>{const b=document.createElement('button');b.className='rec';b.setAttribute('aria-expanded','false');
+  b.innerHTML='<span class="date">가상 공고</span><span class="title">'+n.t+'</span><span class="go">AI 요약 보기 ▾</span>';
+  const s=document.createElement('div');s.className='summary';
+  s.innerHTML='<h4><span class="ai-badge">AI 3줄 요약</span> '+n.meta+'</h4><ul>'+n.li.map(x=>'<li>'+x+'</li>').join('')+'</ul><div class="kw-row">'+n.kw.map(k=>'<span class="kw">'+k+'</span>').join('')+'</div>';
+  b.addEventListener('click',()=>{const o=s.classList.toggle('show');b.setAttribute('aria-expanded',o);b.querySelector('.go').textContent=o?'접기 ▴':'AI 요약 보기 ▾'});
+  $('recList').appendChild(b);$('recList').appendChild(s)});
+$('reportInput').value=C.report.text;
+$('checkBtn').addEventListener('click',()=>{$('resultPh').style.display='none';$('resultList').innerHTML='';$('spinner').classList.add('show');
+  setTimeout(()=>{$('spinner').classList.remove('show');C.report.checks.forEach((c,i)=>{const d=document.createElement('div');d.className='check-item';d.style.animationDelay=(i*.18)+'s';d.innerHTML='<span class="stat '+c[0]+'">'+c[1]+'</span><span>'+c[2]+'</span>';$('resultList').appendChild(d)})},1300)});
+$('lifeTab').textContent=C.lifeTab;
+C.life.forEach((g,i)=>{const o=document.createElement('option');o.value='g'+i;o.textContent=g.label;$('matchSel').appendChild(o);
+  const set=document.createElement('div');set.className='match-set';set.id='g'+i;
+  set.innerHTML=g.cards.map((c,j)=>'<div class="match-card"><div class="step">STEP '+(j+1)+'</div><h4>'+c[0]+'</h4><p>'+c[1]+'</p><div class="why">'+c[2]+'</div></div>').join('');$('matchSets').appendChild(set)});
+$('matchSel').addEventListener('change',e=>{document.querySelectorAll('.match-set').forEach(c=>c.classList.remove('show'));if(e.target.value)$(e.target.value).classList.add('show')});
+$('civicH3').textContent=C.civicH3;$('routeLi').innerHTML=C.routeLi;$('diffRouteK').textContent=C.diffRoute[0];$('diffRouteT').textContent=C.diffRoute[1];$('diffRouteU').textContent=C.diffRoute[2];$('civicP').textContent=C.civicP;$('langLi').innerHTML=C.langLi;
+$('chatHead').innerHTML='AICO — '+C.short+' AI 상담원 <small>AI 상담 · 사람 아님</small>';
+$('chatLog').innerHTML='<div class="msg bot">안녕하세요! '+C.short+' AI 상담원 AICO입니다. 아래 예시를 눌러 시연해 보세요.</div>';
+$('demoChat1').textContent=C.chats[0].label;$('demoChat2').textContent=C.chats[1].label;
+function push(cls,html,delay){return new Promise(res=>setTimeout(()=>{const m=document.createElement('div');m.className='msg '+cls;m.innerHTML=html;$('chatLog').appendChild(m);$('chatLog').scrollTop=$('chatLog').scrollHeight;res()},delay))}
+function lock(v){$('demoChat1').disabled=v;$('demoChat2').disabled=v}
+async function play(i){lock(true);for(const [cls,html,delay] of C.chats[i].steps){await push(cls,html,delay)}lock(false)}
+$('demoChat1').addEventListener('click',()=>play(0));$('demoChat2').addEventListener('click',()=>play(1));
+$('diffSub').textContent=C.diffSub;
+$('values').innerHTML=C.values.map(v=>'<div class="value"><div class="num">'+v[0]+'</div><h4>'+v[1]+'</h4><p>'+v[2]+'</p></div>').join('');
+$('footer').innerHTML='<b>AICO — 24시간 민원대응 AI공무원 · '+C.name+' 제안 시연용 목업</b><br>본 화면은 ㈜투디지트가 제안 협의를 위해 제작한 것으로 '+C.name+' 공식 홈페이지가 아닙니다. 공고·주소·답변은 가상 데이터입니다.';
+const tg=$('aiToggle');function flip(){const on=document.body.classList.toggle('ai-on');tg.setAttribute('aria-checked',on)}
+tg.addEventListener('click',flip);tg.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();flip()}});
+</script>
+</body>
+</html>
